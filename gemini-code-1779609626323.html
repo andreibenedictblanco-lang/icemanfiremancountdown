@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>00:00:00 // VANGUARD</title>
+    <style>
+        :root {
+            --demacia-gold: #c89b3c;
+            --demacia-blue: #0ac8b9;
+            --bg-dark: #010a13;
+            --panel-bg: rgba(1, 10, 19, 0.75);
+            --border-color: #1e2328;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: #f0e6d2;
+            font-family: 'Courier New', Courier, monospace;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+            letter-spacing: 2px;
+            cursor: pointer;
+            position: relative;
+        }
+
+        /* Moving Background Container */
+        .bg-video-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            overflow: hidden;
+        }
+
+        .bg-video-container video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(0.4) contrast(1.1); /* Darkened for Drake/Iceman aesthetic */
+        }
+
+        /* Overlay to blend the video with Demacian colors */
+        .bg-overlay {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(rgba(1, 10, 19, 0.5), rgba(1, 10, 19, 0.8)),
+                        linear-gradient(90deg, rgba(200, 155, 60, 0.02) 1px, transparent 1px),
+                        linear-gradient(rgba(200, 155, 60, 0.02) 1px, transparent 1px);
+            background-size: 100% 100%, 25px 25px, 25px 25px;
+            z-index: -1;
+        }
+
+        .container {
+            text-align: center;
+            padding: 40px;
+            border: 1px solid var(--border-color);
+            background: var(--panel-bg);
+            box-shadow: 0 0 40px rgba(0, 0, 0, 0.9), inset 0 0 30px rgba(10, 200, 185, 0.05);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            max-width: 600px;
+            width: 90%;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Tech corners styling */
+        .container::before, .container::after {
+            content: "";
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            border: 2px solid var(--demacia-gold);
+        }
+        .container::before { top: -2px; left: -2px; border-right: none; border-bottom: none; }
+        .container::after { bottom: -2px; right: -2px; border-left: none; border-top: none; }
+
+        .status-tag {
+            font-size: 0.75rem;
+            color: var(--demacia-blue);
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            opacity: 0.9;
+        }
+
+        .status-tag::before {
+            content: "● ";
+            animation: blink 1.5s infinite;
+        }
+
+        h1 {
+            font-size: 1.2rem;
+            font-weight: 300;
+            color: #ffffff;
+            margin-bottom: 40px;
+            text-transform: uppercase;
+        }
+
+        .timer {
+            font-size: 3.5rem;
+            font-weight: bold;
+            color: var(--demacia-gold);
+            margin-bottom: 40px;
+            font-family: monospace;
+            text-shadow: 0 0 15px rgba(200, 155, 60, 0.3);
+        }
+
+        .access-panel {
+            border-top: 1px solid var(--border-color);
+            padding-top: 30px;
+        }
+
+        .pass-input {
+            background: rgba(0, 0, 0, 0.7);
+            border: 1px solid var(--border-color);
+            padding: 12px 20px;
+            color: #ffffff;
+            font-family: monospace;
+            text-align: center;
+            outline: none;
+            width: 80%;
+            max-width: 280px;
+            transition: all 0.3s ease;
+        }
+
+        .pass-input:focus {
+            border-color: var(--demacia-blue);
+            box-shadow: 0 0 10px rgba(10, 200, 185, 0.2);
+        }
+
+        .footer-lines {
+            margin-top: 30px;
+            font-size: 0.65rem;
+            color: #7a7975;
+            text-transform: uppercase;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 0; }
+            50% { opacity: 1; }
+        }
+
+        @media (max-width: 480px) {
+            .timer { font-size: 2.2rem; }
+            h1 { font-size: 1rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bg-video-container">
+        <video autoplay loop muted playsinline poster="https://images.contentstack.io/v3/assets/blt2ac8785716315c89/blt499a0f4a39008890/5ebd85b54df6870562e840d8/demacia-concept-art.jpg">
+            <source src="https://assets.contentstack.io/v3/assets/blt2ac8785716315c89/blta0ba73ea28ebce1b/5ebd85b6b80bc7646df7c0bc/demacia-environment-video.mp4" type="video/mp4">
+        </video>
+        <div class="bg-overlay"></div>
+    </div>
+
+    <audio id="bg-music" loop preload="auto">
+        <source src="https://pub-c5e31b5cdafb419a99116d3e0fc34b07.r2.dev/what-did-i-miss.mp3" type="audio/mpeg">
+    </audio>
+
+    <div class="container">
+        <div class="status-tag" id="status">System: Secure_Link_Established</div>
+        <h1>Project // Citadel_Conclave</h1>
+        
+        <div class="timer" id="countdown">00:00:00:00</div>
+
+        <div class="access-panel">
+            <input type="password" class="pass-input" placeholder="ENTER_ACCESS_KEY" autocomplete="off">
+        </div>
+
+        <div class="footer-lines">
+            <p>Demacian Protocol // 06.06 // Unauthorized access prohibited</p>
+        </div>
+    </div>
+
+    <script>
+        // Set fixed target to June 6th of the current calendar year
+        const currentYear = new Date().getFullYear();
+        const targetDate = new Date(`June 6, ${currentYear} 00:00:00`).getTime();
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const difference = targetDate - now;
+
+            if (difference < 0) {
+                document.getElementById("countdown").innerHTML = "00:00:00:00";
+                document.getElementById("status").innerHTML = "System: Project_Live";
+                return;
+            }
+
+            const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+            const format = (num) => String(num).padStart(2, '0');
+
+            document.getElementById("countdown").innerHTML = 
+                `${format(days)}:${format(hours)}:${format(minutes)}:${format(seconds)}`;
+        }
+
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+
+        // Music Initialization System (Plays on first click/type interaction)
+        const audio = document.getElementById('bg-music');
+        
+        function initiateAudio() {
+            if (audio.paused) {
+                audio.play().catch(err => console.log("Audio streaming initiated: ", err));
+            }
+        }
+        
+        document.body.addEventListener('click', initiateAudio);
+        document.querySelector('.pass-input').addEventListener('keydown', initiateAudio);
+
+        // Access Key Redirection Rules
+        const passInput = document.querySelector('.pass-input');
+        passInput.addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                if (this.value.toUpperCase() === 'VANGUARD') {
+                    alert('ACCESS GRANTED // Coordinates Acquired.');
+                    window.location.href = "https://maps.app.goo.gl/PrgocQMDgjn5ghik7"; 
+                } else {
+                    alert('ACCESS DENIED // Invalid Key.');
+                    this.value = ''; 
+                }
+            }
+        });
+    </script>
+</body>
+</html>
